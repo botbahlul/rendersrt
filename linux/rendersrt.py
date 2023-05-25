@@ -11,7 +11,7 @@ import json
 import pysrt
 from pathlib import Path
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 def check_file_type(file_path, error_messages_callback=None):
     try:
@@ -118,10 +118,14 @@ def main():
         else:
             video_path_str = video_path
 
+    else:
+        video_path_str = video_path
+
     if not sys.platform == "win32" :
         video_path_str = escape(video_path_str)
 
     video_paths += glob(video_path_str)
+    #print("video_paths = %s" %video_paths)
 
     if video_paths:
         if os.path.isfile(video_paths[0]):
@@ -168,6 +172,9 @@ def main():
             subtitle_path_str = subtitle_path_str.replace(placeholder, "[[]")
         else:
             subtitle_path_str = subtitle_path
+
+    else:
+        subtitle_path_str = subtitle_path
 
     if not sys.platform == "win32" :
         subtitle_path_str = escape(subtitle_path_str)
