@@ -4,8 +4,10 @@
 rendersrt is a simple command line tool made with python to render a subtitle file into any video or audio files.
 
 ### Installation
-If you don't have python on your Windows system you can get compiled version from this git release assets
+If you don't have python on your Windows system you can try compiled version from this git release assets
 https://github.com/botbahlul/rendersrt/releases
+
+If it doesn't run well then you need to install python on your Windows system.
 
 Just extract those ffmpeg.exe and rendersrt.exe into a folder that has been added to PATH ENVIRONTMET for example in C:\Windows\system32
 
