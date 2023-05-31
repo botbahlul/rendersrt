@@ -91,4 +91,4 @@ options:
 
 MIT
 
-Check my other SPEECH RECOGNITIION + TRANSLATE PROJECTS in https://github.com/botbahlul?tab=repositories
+Check my other SPEECH RECOGNITIION + TRANSLATE PROJECTS https://github.com/botbahlul?tab=repositories
