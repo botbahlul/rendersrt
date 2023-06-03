@@ -11,7 +11,7 @@ import json
 import pysrt
 from pathlib import Path
 
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 
 def check_file_type(file_path, error_messages_callback=None):
     try:
@@ -64,6 +64,16 @@ def show_error_messages(messages):
 def render_media_with_subtitle(video_path, media_type, media_ext, subtitle_path, output_path, error_messages_callback=None):
 
     try:
+        if "\\" in video_path:
+            video_path = video_path.replace("\\", "/")
+
+        if "\\" in subtitle_path:
+            subtitle_path = subtitle_path.replace("\\", "/")
+
+        if "\\" in output_path:
+            output_path = output_path.replace("\\", "/")
+
+
         ffprobe_command = f'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{video_path}"'
         ffprobe_process = subprocess.Popen(ffprobe_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         total_duration = float(ffprobe_process.stdout.read().decode().strip())
