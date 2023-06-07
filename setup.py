@@ -35,7 +35,7 @@ setup(
     long_description = long_description,
     author="Bot Bahlul",
     author_email="bot.bahlul@gmail.com",
-    url="https://github.com/botbahlul/autosrt",
+    url="https://github.com/botbahlul/rendersrt",
     packages=["rendersrt"],
     entry_points={
         "console_scripts": [
