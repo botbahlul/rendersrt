@@ -12,7 +12,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 
-VERSION = "0.0.5"
+VERSION = "0.0.6"
 
 
 class Language:
@@ -941,12 +941,27 @@ class MediaSubtitleRenderer:
                 raise Exception("Dependency not found: ffmpeg")
 
         try:
+            '''
             ffmpeg_command = [
                                 "ffmpeg",
                                 "-y",
                                 "-i", media_filepath,
                                 "-vf", f"subtitles={shlex.quote(self.subtitle_path)}",
                                 "-y", self.output_path
+                             ]
+            '''
+
+            scale_switch = "'trunc(iw/2)*2':'trunc(ih/2)*2'"
+            ffmpeg_command = [
+                                "ffmpeg",
+                                "-y",
+                                "-i", media_filepath,
+                                "-vf", f"subtitles={shlex.quote(self.subtitle_path)},scale={scale_switch}",
+                                "-c:v", "libx264",
+                                "-crf", "23",
+                                "-preset", "medium",
+                                "-c:a", "copy",
+                                self.output_path
                              ]
 
             ffprobe_command = f'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{media_filepath}"'
@@ -1300,7 +1315,6 @@ def main():
                     print("Is '%s' subtitle stream exist       : No" %(ffmpeg_src_language_code.center(3)))
 
                     #result = render_subtitle_to_media(media_filepaths[0], media_type, valid_subtitle_paths[0], language_code, output_path, error_messages_callback=None)
-
 
                     widgets = [f"Rendering \'{language_code}\' subtitles with {media_type} : ", Percentage(), ' ', Bar(marker="#"), ' ', ETA()]
                     pbar = ProgressBar(widgets=widgets, maxval=100).start()
